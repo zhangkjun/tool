@@ -1,0 +1,94 @@
+﻿@{
+    var F = Html.F();
+
+    var _bodyClass = "";
+    if (ViewBag.BodyBGColor != null)
+    {
+        _bodyClass = "f-body-bgcolor";
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+ <title>@Html.Raw(ViewBag.Title)</title>
+<meta name="keywords" content="@Html.Raw(ViewBag.keywords)" />
+ <meta name="description" content="@Html.Raw(ViewBag.description)" />
+
+    @F.RenderCss()
+
+    <link href="~/res/css/common.css?v@(GlobalConfig.ProductVersion)" rel="stylesheet" type="text/css" />
+    @RenderSection("head", false)
+
+</head>
+<body class="@_bodyClass">
+
+    @Html.AntiForgeryToken()
+
+    @{
+        var pm = F.PageManager;
+
+        // 主题
+        var themeCookie = Context.Request.Cookies["Theme"];
+        if (!String.IsNullOrEmpty(themeCookie))
+        {
+            Theme theme;
+            if (Enum.TryParse<Theme>(themeCookie, true, out theme))
+            {
+                // 先清空CustomTheme，再设置Theme
+                pm.CustomTheme(String.Empty);
+                pm.Theme(theme);
+            }
+            else
+            {
+                pm.CustomTheme(themeCookie);
+            }
+        }
+       pm.LoadingImageNumber(1);
+        pm.AjaxLoadingType(AjaxLoadingType.Mask);
+	    bool showOnlyBase = false;
+        if (showOnlyBase)
+        {
+            pm.MobileAdaption(false);
+            pm.DisplayMode(FineUICore.DisplayMode.Normal);
+            pm.EnableAnimation(false);
+        }
+        else
+        {
+            pm.MobileAdaption(true);
+	        // 显示模式
+	        var modeCookie = Context.Request.Cookies["DisplayMode"];
+	        if (!String.IsNullOrEmpty(modeCookie))
+	        {
+	            try
+	            {
+	                pm.DisplayMode((DisplayMode)Enum.Parse(typeof(DisplayMode), modeCookie, true));
+	            }
+	            catch (Exception)
+	            {
+	                pm.DisplayMode(DisplayMode.Normal);
+	            }
+	        }
+
+	        // 是否移动页面
+	        var area = ViewContext.RouteData.Values["area"];
+	        var areaName = (area == null ? "" : area.ToString().ToLower());
+	        var controllerName = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+	        if (controllerName == "mobile" || areaName.StartsWith("mobile"))
+	        {
+	            // 强制设为大字体、移动设备自适应
+	            pm.DisplayMode(DisplayMode.Large);
+	            pm.MobileAdaption(true);
+	        }
+	}
+    }
+    @F.PageManager
+
+    @RenderSection("body", true)
+
+    @F.RenderScript()
+
+    <script type="text/javascript" src="~/res/js/common.js?v@(GlobalConfig.ProductVersion)"></script>
+    @RenderSection("script", false)
+</body>
+</html>

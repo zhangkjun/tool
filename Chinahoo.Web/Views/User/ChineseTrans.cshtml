@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "";
+    var F = Html.F();
+}
+@section body {
+
+    @(F.Panel().IsFluid(true).CssClass("blockpanel").ID("Panel2").ShowBorder(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").ShowHeader(false).TitleAlign(TextAlign.Center).Title("AES 操作")
+        .Items(
+            F.Panel().ID("Panel3").Title("繁简转换").BodyPadding(10).ShowBorder(true).ShowHeader(true)
+                        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Center).ID("Toolbar1")
+                .Items(
+                   F.Button().ID("Button2").Text("转换繁体").ValidateTarget(Target.Top).ValidateForms("Panel2").OnClick(Url.Action("EncryptionChineseTrans_Click"),"Panel2"),
+                   F.Button().ID("Button3").Text("转换简体").ValidateTarget(Target.Top).ValidateForms("Panel2").OnClick(Url.Action("DecryptChineseTrans_Click"),"Panel2")
+                )
+        )
+                .Items(
+                   F.TextArea().ID("original").Label("简体中文"),
+                              F.TextArea().ID("ciphertext").Label("繁体中文")
+                )
+           
+        )
+    )
+
+}

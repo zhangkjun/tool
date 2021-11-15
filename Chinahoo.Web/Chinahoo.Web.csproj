@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Chinahoo.Extensions.Context" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FineUICore">
+      <HintPath>..\..\..\..\code\SmartHealth\Chinahoo.Web\Chinahoo.Web\bin\Debug\FineUICore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\res\images\fa_png\" />
+    <Folder Include="wwwroot\res\images\loading\" />
+    <Folder Include="wwwroot\res\images\themes\border\" />
+    <Folder Include="wwwroot\upload\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Chinahoo.Core\Chinahoo.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="qqwry.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

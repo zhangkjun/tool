@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().IsFluid(true).CssClass("blockpanel").ID("Panel2").ShowBorder(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").ShowHeader(false).TitleAlign(TextAlign.Center).Title("AES 操作")
+        .Items(
+            F.Panel().ID("Panel3").Title("加密").BodyPadding(10).ShowBorder(true).ShowHeader(true)
+                        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Center).ID("Toolbar1")
+                .Items(
+                   F.Button().ID("Button2").Text("加密").ValidateTarget(Target.Top).ValidateForms("Panel2").OnClick(Url.Action("EncryptionHMAC_Click"),"Panel2")
+                )
+        )
+                .Items(
+                     F.TextBox().ID("key").Required(true).Label("加密密钥"),
+                   F.TextArea().ID("original").Required(true).Label("加密内容"),
+                    F.RadioButtonList().ID("mode").Label("加密方式")
+                .Items(
+                    F.RadioItem().Text("HMACMD5").Selected(true).Value("HMACMD5"),
+                    F.RadioItem().Text("HMACSHA1").Value("HMACSHA1"),
+                     F.RadioItem().Text("HMACSHA256").Value("HMACSHA256"),
+                      F.RadioItem().Text("HMACSHA384").Value("HMACSHA384"),
+                        F.RadioItem().Text("HMACSHA512").Value("HMACSHA512")
+                ),
+                              F.TextArea().ID("ciphertext").Label("加密结果")
+                )
+           
+        )
+    )
+
+}

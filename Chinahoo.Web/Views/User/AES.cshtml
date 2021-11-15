@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().IsFluid(true).CssClass("blockpanel").ID("Panel2").ShowBorder(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").ShowHeader(false).TitleAlign(TextAlign.Center).Title("AES 操作")
+        .Items(
+            F.Panel().ID("Panel1").Title("创建秘钥").BodyPadding(10).ShowBorder(true).ShowHeader(true)
+            .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Center).ID("Toolbar1")
+                .Items(
+                   F.Button().ID("Button2").Text("创建").OnClick(Url.Action("CreateAES_Click"))
+                )
+        )
+                .Items(
+                    F.TextBox().ID("Key").Required(true).Label("Key"),
+                              F.TextBox().Required(true).ID("IV").Label("IV")
+                           
+                ),
+            F.Panel().ID("Panel3").Title("加密解密").BodyPadding(10).ShowBorder(true).ShowHeader(true)
+                        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Center).ID("Toolbar1")
+                .Items(
+                   F.Button().ID("Button2").Text("加密").ValidateTarget(Target.Top).ValidateForms("Panel2").OnClick(Url.Action("EncryptionAES_Click"),"Panel2"),
+                     F.Button().ID("Button2").Text("解密").ValidateTarget(Target.Top).ValidateForms("Panel2").OnClick(Url.Action("DecryptAES_Click"),"Panel2")
+                )
+        )
+                .Items(
+                   F.TextArea().ID("original").Label("原文"),
+                    F.RadioButtonList().ID("mode").Label("加密向量")
+                .Items(
+                    F.RadioItem().Text("带向量").Selected(true).Value("0"),
+                    F.RadioItem().Text("不带向量").Value("1")
+                ),
+                              F.TextArea().ID("ciphertext").Label("密文")
+                )
+        )
+    )
+
+}

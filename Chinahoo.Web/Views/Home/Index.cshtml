@@ -1,0 +1,111 @@
+﻿
+@{ 
+    ViewBag.Title = "爱益云常用加密、二维码生成工具集";
+     ViewBag.keywords = "站长工具,aes,des,HMAC,md5,sha,base64,rsa,二维码生成，中文繁简转换";
+      ViewBag.description = "常用加密工具集合，二维码生成，中文繁简转换一站式服务";
+      var F = Html.F();
+}
+
+@section head {
+     <link type="text/css" rel="stylesheet" href="~/res/css/index.css?v@(GlobalConfig.ProductVersion)" />
+    <link type="text/css" rel="stylesheet" href="~/res/css/mobileview.css?v@(GlobalConfig.ProductVersion)" />
+
+}
+
+@functions {
+    private void SetCheckedMenuItem(MenuButton menuButton, string checkedValue)
+    {
+        foreach (MenuItem item in menuButton.Menu.Items)
+        {
+                MenuCheckBox checkBox = (item as MenuCheckBox);
+                if (checkBox != null)
+                {
+                    checkBox.Checked = checkBox.AttributeDataTag == checkedValue;
+                }
+        }
+    }
+    }
+
+
+@section body {
+
+    <div id="sideheader" class="f-widget-header f-mainheader">
+
+        <a class="logo" href="@Url.Content("~/")" title="爱益云">爱益云</a>
+    </div>
+    <div id="header" class="f-widget-header f-mainheader" style="display:none;">
+        <div class="header-left">
+            @(F.Button().ID("btnCollapseSidebar").CssClass("icononlyaction").ToolTip("折叠/展开侧边栏").IconAlign(IconAlign.Top).IconFont(IconFont._Fold).EnableDefaultState(false).EnableDefaultCorner(false).TabIndex(-1).Listener("click", "onFoldClick"))
+
+        </div>
+        <div class="header-right">
+            @(F.Button().CssClass("icononlyaction").ID("btnThemeSelect").ToolTip("主题仓库").IconAlign(IconAlign.Top).IconFont(IconFont._Skin).EnableDefaultState(false).EnableDefaultCorner(false).TabIndex(-1).Listener("click", "onThemeSelectClick"))
+            @(F.Button().EnableDefaultCorner(false).EnableDefaultState(false).IconAlign(IconAlign.Top).IconFont(IconFont._PowerOff).OnClick(Url.Action("Exit", "Home")).ConfirmText("您是否确定要退出系统?").CssClass("icononlyaction"))
+        </div>
+    </div>
+
+
+    @(F.Panel().ID("mainPanel").ShowHeader(false).ShowBorder(false).Layout(LayoutType.Region).CssClass("mainpanel").IsViewPort(true)
+        .Items(
+            F.Panel().ID("sidebarRegion").CssClass("sidebarregion bgpanel").RegionPosition(Position.Left).Width(260).Layout(LayoutType.VBox).ShowBorder(false).ShowHeader(false).RegionSplit(true).RegionSplitIcon(false).RegionSplitWidth(3).RegionSplitTransparent(true)
+                .Items(
+                    F.Panel().ShowHeader(false).ShowBorder(false).CssClass("topregion").ID("topPanel").ContentEl("#sideheader"),
+                    F.Panel().BoxFlex(1).Layout(LayoutType.Fit).ShowHeader(false).ShowBorder(true).CssClass("leftregion").ID("leftPanel")
+                        .Items(
+                            F.Tree().ID("treeMenu").ShowBorder(false).ShowHeader(false).EnableSingleClickExpand(true)
+                                .Nodes((TreeNode[])ViewBag.TreeMenuNodes)
+                        )
+                ).Listener("splitdrag", "onSidebarSplitDrag"),
+            F.Panel().ID("bodyRegion").CssClass("bodyregion").RegionPosition(Position.Center).Layout(LayoutType.VBox).ShowBorder(false).ShowHeader(false)
+                .Items(
+                    F.Panel().ID("topPanel").ShowHeader(false).ShowBorder(false).CssClass("topregion").ContentEl("#header"),
+                    F.TabStrip().BoxFlex(1).ShowInkBar(true).InkBarPosition(InkBarPosition.Top).EnableTabCloseMenu(true).ShowBorder(true).RegionPosition(Position.Center).CssClass("centerregion").ID("mainTabStrip").ShowTabHeader(false)
+                        .Tabs(
+                            F.Tab().ID("tabHomepage").IFrameUrl(Url.Content("~/User/Main")).EnableIFrame(true).IconFont(IconFont._Home).Title("首页")
+                        )
+                )
+        )
+    )
+    @(F.Window().Hidden(true).EnableResize(true).EnableMaximize(true).EnableClose(true).Height(600).Width(1000).IsModal(true).ClearIFrameAfterClose(false).IFrameUrl(Url.Content("~/Home/Themes")).EnableIFrame(true).Title("主题仓库").ID("windowThemeRoller"))
+    @{ string cookieMenuStyle = "tree";
+                      
+                        // 初始化左侧菜单
+                        Tree treeMenu = F.GetControl<Tree>("treeMenu");
+                        if (cookieMenuStyle == "tree")
+                        {
+                            treeMenu.HideHScrollbar = true;
+                            treeMenu.HideVScrollbar = true;
+                            treeMenu.ExpanderToRight = true;
+                            treeMenu.HeaderStyle = true;
+                            treeMenu.AllHeaderStyle = true;
+                        } }
+
+}
+@section script {
+    <script>
+        var PARAMS = {
+            mainPanel: 'mainPanel',
+            mainTabStrip: 'mainTabStrip',
+            treeMenu: 'treeMenu',
+            sidebarRegion: 'sidebarRegion',
+            btnCollapseSidebar: 'btnCollapseSidebar',
+            tabHomepage: 'tabHomepage',
+            windowSourceCode: 'windowSourceCode',
+            windowThemeRoller: 'windowThemeRoller',
+            windowLoadingSelector: 'windowLoadingSelector',
+            windowApplyTrial: 'windowApplyTrial',
+            hfExamplesCount: 'hfExamplesCount',
+            sourceUrl: '@Url.Content("~/User/Main")',
+            dashboardUrl: '@Url.Content("~/User/Main")',
+            mainUrl: '@Url.Content("~/User/Main")',
+            processNewWindowUrl: function (url) {
+                return url.replace(/Mobile\/\?file=/ig, '');
+            }
+        };
+
+    </script>
+
+   <script src="~/res/js/index.js?v@(GlobalConfig.ProductVersion)"></script>
+    <script src="~/res/js/mobileview.js?v@(GlobalConfig.ProductVersion)"></script>
+
+}
