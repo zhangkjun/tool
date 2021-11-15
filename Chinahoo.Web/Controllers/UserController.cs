@@ -31,7 +31,7 @@ namespace Chinahoo.Web.Controllers
         {
             try
             {
-                var ip = values["ip"];
+                var ip = values["ip"].ToString();
                 if (string.IsNullOrEmpty(ip))
                 {
                     Alert.Show("ip或者域名不能为空");
@@ -49,7 +49,7 @@ namespace Chinahoo.Web.Controllers
                     {
                         try
                         {
-                            var url = new Uri(ip);
+                            var url = new Uri("http://"+(ip.Replace("http://", "").Replace("https://", "")));
                             IPAddress[] IPs = Dns.GetHostAddresses(url.Host);
                             if (IPs.Count() > 0)
                             {
