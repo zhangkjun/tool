@@ -14,7 +14,7 @@
             .Toolbars(
             F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Center).ID("Toolbar1")
                 .Items(
-                   F.Button().ID("Button2").Text("查询").ValidateTarget(Target.Top).ValidateForms("Panel2").OnClick(Url.Action("SearchIp_Click"),"Panel2")
+                   F.Button().ID("Button2").Text("查询").ValidateTarget(Target.Top).ValidateForms("Panel2").Type(ButtonType.Submit).OnClick(Url.Action("SearchIp_Click"),"Panel2")
                 )
         )
                 .Items(
