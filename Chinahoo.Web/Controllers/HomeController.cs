@@ -42,6 +42,7 @@ namespace Chinahoo.Web.Controllers
                 return File(System.Text.Encoding.UTF8.GetBytes(Chinahoo.Core.Utils.GetError("系统错误", "抱歉，出错了")), "text/html");
             }
         }
+
         public IActionResult Index()
         {
             LoadData();
