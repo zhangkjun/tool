@@ -18,7 +18,7 @@
                 )
         )
                 .Items(
-                     F.TextBox().ID("ip").Required(true).Label("IP或者域名").LabelWidth(160).EmptyText("请输入ip地址或者域名")
+                     F.TextBox().ID("ip").FocusOnPageLoad(true).Required(true).Label("IP或者域名").LabelWidth(160).EmptyText("请输入ip地址或者域名")
                            
                 ),
             F.Panel().ID("Panel3").Title("结果").BodyPadding(10).ShowBorder(true).ShowHeader(true)

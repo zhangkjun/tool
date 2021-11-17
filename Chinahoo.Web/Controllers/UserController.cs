@@ -1,4 +1,5 @@
 ﻿using FineUICore;
+using Jsbeautifier;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Encrypt;
 using System.Net;
@@ -652,6 +653,43 @@ namespace Chinahoo.Web.Controllers
                 }
 
                
+            }
+            catch
+            {
+                ShowNotify("系统异常稍后重试", MessageBoxIcon.Error);
+            }
+            return UIHelper.Result();
+        }
+        //
+        #endregion
+        #region js格式化
+        private Beautifier beautifier = new Beautifier();
+        public IActionResult Js()
+        {
+            
+           
+            return  View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Encryptionjs_Click(IFormCollection values)
+        {
+            try
+            {
+                BeautifierOptions bo = beautifier.Opts;
+                bo.IndentWithTabs = true;
+                var original = values["original"];
+                if (string.IsNullOrEmpty(original))
+                {
+                    Alert.Show("内容不能为空");
+                }
+                else
+                {
+                    UIHelper.TextArea("original").Text(beautifier.Beautify(original));
+                    ShowNotify("格式化成功", MessageBoxIcon.Success);
+                }
+
+
             }
             catch
             {

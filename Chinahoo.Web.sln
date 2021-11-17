@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinahoo.Web", "Chinahoo.Web\Chinahoo.Web.csproj", "{360BC567-9676-44B9-82BC-B42EB0B141DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chinahoo.Web", "Chinahoo.Web\Chinahoo.Web.csproj", "{360BC567-9676-44B9-82BC-B42EB0B141DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinahoo.Core", "Chinahoo.Core\Chinahoo.Core.csproj", "{00CD4208-2385-42C9-A94C-91338594818E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chinahoo.Core", "Chinahoo.Core\Chinahoo.Core.csproj", "{00CD4208-2385-42C9-A94C-91338594818E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -24,4 +24,6 @@
 	</TreeNode>
   <TreeNode Text="繁简转换" NavigateUrl="~/User/ChineseTrans"  IconFont="_Key">
   </TreeNode>
+<TreeNode Text="js格式化" NavigateUrl="~/User/Js"  IconFont="_Maximize">
+  </TreeNode>
 </Tree>
