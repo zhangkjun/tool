@@ -9,7 +9,7 @@ namespace Chinahoo.Core
     public class IPSearch
     {
         static string ipfilePath = Directory.GetCurrentDirectory() + "/qqwry.dat";
-       
+
         long ip;
 
         public static IPSearch.IPLocation GetAddress(string ip)
@@ -18,8 +18,8 @@ namespace Chinahoo.Core
             return WebCache.Get(key, () =>
             {
                 IPSearch ipSearch = new IPSearch();
-            IPSearch.IPLocation loc = ipSearch.GetIPLocation(ip);
-            return loc;
+                IPSearch.IPLocation loc = ipSearch.GetIPLocation(ip);
+                return loc;
             });
         }
         ///<summary>
@@ -36,8 +36,11 @@ namespace Chinahoo.Core
         ///<returns></returns>
         public IPLocation GetIPLocation(string strIP)
         {
-          
-                FileStream ipFile = new FileStream(ipfilePath, FileMode.Open, FileAccess.Read);
+
+
+
+            using (FileStream ipFile = new FileStream(ipfilePath, FileMode.Open, FileAccess.Read))
+            {
                 try
                 {
                     ip = IPToLong(strIP);
@@ -66,12 +69,11 @@ namespace Chinahoo.Core
 
                     return loc;
                 }
-                finally
-                {
-                    ipFile.Close();
-                }
-           
-            
+                finally { }
+            }
+
+
+
         }
         ///<summary>
         /// 将字符串形式的IP转换位long
