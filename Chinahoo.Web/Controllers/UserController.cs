@@ -5,6 +5,7 @@ using NETCore.Encrypt;
 using System.Net;
 using System.Text;
 using System.Web;
+using Yahoo.Yui.Compressor;
 
 namespace Chinahoo.Web.Controllers
 {
@@ -676,8 +677,9 @@ namespace Chinahoo.Web.Controllers
         {
             try
             {
-                BeautifierOptions bo = beautifier.Opts;
-                bo.IndentWithTabs = true;
+                //BeautifierOptions bo = beautifier.Opts;
+                //bo.IndentWithTabs = true;
+                JavaScriptCompressor compressor = new JavaScriptCompressor();
                 var original = values["original"];
                 if (string.IsNullOrEmpty(original))
                 {
@@ -685,8 +687,9 @@ namespace Chinahoo.Web.Controllers
                 }
                 else
                 {
-                    UIHelper.TextArea("original").Text(beautifier.Beautify(original));
-                    ShowNotify("格式化成功", MessageBoxIcon.Success);
+                    compressor.Encoding = Encoding.UTF8;
+                    UIHelper.TextArea("original").Text(compressor.Compress(original));
+                    ShowNotify("压缩成功", MessageBoxIcon.Success);
                 }
 
 
@@ -697,6 +700,34 @@ namespace Chinahoo.Web.Controllers
             }
             return UIHelper.Result();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EncryptionCSS_Click(IFormCollection values)
+        {
+            try
+            {
+                CssCompressor compressor = new CssCompressor();
+                var original = values["original"];
+                if (string.IsNullOrEmpty(original))
+                {
+                    Alert.Show("内容不能为空");
+                }
+                else
+                {
+                    
+                    UIHelper.TextArea("original").Text(compressor.Compress(original));
+                    ShowNotify("压缩成功", MessageBoxIcon.Success);
+                }
+
+
+            }
+            catch
+            {
+                ShowNotify("系统异常稍后重试", MessageBoxIcon.Error);
+            }
+            return UIHelper.Result();
+        }
+        
         //
         #endregion
 
